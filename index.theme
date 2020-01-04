@@ -1,0 +1,6 @@
+[theme]
+name=diegodorado
+description=diegodorado login
+engine=lightdm-webkit2-greeter
+url=index.html
+session=cinnamon
