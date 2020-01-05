@@ -19,7 +19,6 @@ show_error = (text) => show_message(text)
 
 // called when the greeter is finished the authentication request
 function authentication_complete() {
-  console.log("authentication_complete");
   if (lightdm.is_authenticated) {
     lightdm.login(lightdm.authentication_user, lightdm.sessions[sessionIdx].key)
   } else {
@@ -49,10 +48,10 @@ updateUser = () => {
 initialize = () => {
   suspend.addEventListener('click', () => lightdm.suspend())
   restart.addEventListener('click', () => lightdm.restart())
-  shutdown.addEventListener('click', () => shutdown.suspend())
+  shutdown.addEventListener('click', () => lightdm.shutdown())
 
   document.addEventListener('keypress', (e) => {
-    if (e.code === "Enter") {
+    if (e.code === "Enter" && document.activeElement===pwd) {
       show_message("Logging in...")
       lightdm.cancel_timed_login();
       lightdm.start_authentication(lightdm.users[userIdx].name)
@@ -61,6 +60,7 @@ initialize = () => {
 
   //cycle through users and sessions
   document.addEventListener('keydown', (e) => {
+
     if (e.code === "ArrowUp") {
       userIdx--
       userIdx += lightdm.users.length
