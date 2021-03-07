@@ -11,7 +11,15 @@ You will need lightdm as your login manager and the lightdm-webkit2-greeter from
 /etc/lightdm/lightdm.conf
 </pre>
 
-and changing the greeter-session value to lightdm-webkit2-greeter. lightdm.conf should have:
+Set `display-setup-script` to this to automatically display on all connected monitors
+
+```bash
+xrandr | grep -Eo "(.*)\sconnected" | cut -d ' ' -f 1 | awk '{system("xrandr --output " $1 " --auto")}' 
+```
+
+and changing the greeter-session value to lightdm-webkit2-greeter. 
+
+lightdm.conf should have:
 
 <pre>
 [SeatDefaults]
